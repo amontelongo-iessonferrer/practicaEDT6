@@ -13,10 +13,13 @@ public class Palindromo {
 
 		if (esPalindromo(texto)) {
 			System.out.println("¡Sí es un palíndromo!");
-			
+
 		} else {
 			System.out.println("No es un palíndromo.");
 		}
+
+		// Cerrar objeto Scanner
+		entrada.close();
 
 	}
 
@@ -25,18 +28,29 @@ public class Palindromo {
 			return "";
 		}
 
-		// El regex elimina cualquier caracter que no sea específicamente una letra
+		// El regex elimina cualquier carácter que no sea específicamente una letra
 		return texto.toLowerCase().replaceAll("\\P{L}+", "");
 	}
 
+	// Método alterna, en vez de crear objetos innecesarios en memoria. Se mira cada
+	// carácter desde el principio y desde el final a la vez y comprueba si son
+	// iguales o no. Si logra a llegar al medio de la frase, es un palíndromo.
+	
+	// El medio de la frase sería cuando i supera a j
+
 	static boolean esPalindromo(String texto) {
 
-		String textoAlReves = "";
+		int i = 0;
+		int j = texto.length() - 1;
 
-		for (int i = texto.length() - 1; i >= 0; i--) {
-			textoAlReves += texto.charAt(i);
+		while (i < j) {
+			if (texto.charAt(i) != texto.charAt(j)) {
+				return false;
+
+			}
+			i++;
+			j--;
 		}
-
-		return texto.equals(textoAlReves);
+		return true;
 	}
 }
